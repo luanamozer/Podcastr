@@ -3,7 +3,7 @@ import ptBR from 'date-fns/locale/pt-BR';
 import Image from 'next/image';
 import Link from 'next/link';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 import { api } from '../../services/api';
 import { convertDurationToTimeString } from '../../utils/convertDurationToTimeString';
 import styles from './episode.module.scss';
@@ -26,6 +26,7 @@ type EpisodeProps = {
 
 export default function Episode({ episode }: EpisodeProps) {
   return (
+
     <div className={styles.episode}>
       <div className={styles.thumbnailContainer}>
         <Link href="/">
@@ -39,6 +40,7 @@ export default function Episode({ episode }: EpisodeProps) {
          src={episode.thumbnail} 
          objectFit="cover"
          />
+
          <button type="button">
            <img src="/play.svg" alt="Tocar episódio"/>
          </button>
@@ -61,8 +63,23 @@ export default function Episode({ episode }: EpisodeProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const { data } = await api.get('episodes', {
+    params: {
+      _limit: 2,
+      _sort: 'pulished_at',
+      _order:'desc'
+    }
+  })
+  const paths = data.map(episode =>{
+    return {
+      params: {
+        slug:episode.id
+      }
+    }
+  })
+
   return {
-    paths: [],
+    paths,
     fallback: 'blocking'
   }
 }
