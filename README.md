@@ -15,10 +15,11 @@ Projeto **Podcastr** é uma aplicação de Podcast desenvolvida na semana **NLW0
 
 ## 🚀 Tecnologias Utilizadas
 
-O projeto foi desenvolvido utilizadndo as seguintes tecnologias :
+O projeto foi desenvolvido utilizando as seguintes tecnologias :
 
 - ReactJs
 - NextJs
+- TypeScript
 - Sass
 
 ---
